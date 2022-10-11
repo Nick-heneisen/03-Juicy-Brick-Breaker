@@ -4,17 +4,18 @@ A starting place for Project 03
 
 
 ```
-# Project Name
-Context and date
+# Brick-Breaker
+10/11/2022
 
-Description
+A brick breaker game
 
 ## Implementation
 Which features you included
+-
 
 ## References
 
 ## Future Development
 
-## Created by
+## Created by Nicholas Heneisen
 ```

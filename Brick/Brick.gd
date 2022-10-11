@@ -6,9 +6,33 @@ var dying = false
 
 var powerup_prob = 0.1
 
+var colors = [
+	Color8(224,49,49)
+	,Color8(255,146,43)
+	,Color8(255,212,59)
+	,Color8(148,216,45)
+	,Color8(34,139,230)
+	,Color8(132,94,247)
+	,Color8(190,75,219)
+	,Color8(134,142,150)
+]
+
+var color_index = 0
+var color_distance = 0
+var color_completed = true
+
 func _ready():
 	randomize()
 	position = new_position
+	if score >= 100: color_index = 0
+	elif score >= 90: color_index = 1
+	elif score >= 80: color_index = 2
+	elif score >= 70: color_index = 3 
+	elif score >= 60: color_index = 4
+	elif score >= 50: color_index = 5
+	elif score >= 40: color_index = 6
+	else: color_index = 7
+	$ColorRect.color = colors[color_index]
 
 func _physics_process(_delta):
 	if dying:
@@ -16,6 +40,9 @@ func _physics_process(_delta):
 
 func hit(_ball):
 	die()
+	var brick_sound = get_node_or_null("/root/Game/brick")
+	if brick_sound != null:
+		brick_sound.play()
 
 func die():
 	dying = true

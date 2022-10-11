@@ -4,6 +4,7 @@ export var margin = Vector2(145,105)
 export var index = Vector2(100,40)
 
 func _ready():
+
 	if Global.level < 0 or Global.level >= len(Levels.levels):
 		Global.end_game(true)
 	else:

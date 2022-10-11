@@ -2,7 +2,7 @@ extends RigidBody2D
 
 var min_speed = 100.0
 var max_speed = 600.0
-var speed_multiplier = 1.0
+var speed_multiplier = 2.0
 var accelerate = false
 
 var released = true
@@ -10,6 +10,9 @@ var released = true
 var initial_velocity = Vector2.ZERO
 
 func _ready():
+	var music = get_node_or_null("music")
+	if music != null:
+		music.play()
 	contact_monitor = true
 	contacts_reported = 8
 	if Global.level < 0 or Global.level >= len(Levels.levels):
@@ -24,6 +27,7 @@ func _on_Ball_body_entered(body):
 	if body.has_method("hit"):
 		body.hit(self)
 		accelerate = true	
+		$music.pitch_scale += 0.01
 
 func _input(event):
 	if not released and event.is_action_pressed("release"):
@@ -31,6 +35,7 @@ func _input(event):
 		released = true
 
 func _integrate_forces(state):
+	$Sprite.rotation_degrees += float(state.linear_velocity.x)
 	if not released:
 		var paddle = get_node_or_null("/root/Game/Paddle_Container/Paddle")
 		if paddle != null:
@@ -57,3 +62,7 @@ func change_speed(s):
 
 func die():
 	queue_free()
+	var die_sound = get_node_or_null("/root/Game/die")
+	if die_sound != null:
+		die_sound.play()
+
